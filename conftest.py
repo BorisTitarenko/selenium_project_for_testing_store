@@ -8,14 +8,13 @@ def pytest_addoption(parser):
 
 
 @pytest.fixture(scope="function")
-def browser(request):
+def browser(request) -> webdriver:
     language = request.config.getoption("language")
     browser = None
 
     options = Options()
     options.add_experimental_option('prefs', {'intl.accept_languages': language})
     browser = webdriver.Chrome(options=options)
-
     browser.implicitly_wait(5)
     yield browser
     print("\nquit browser..")
